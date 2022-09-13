@@ -1,6 +1,6 @@
 //CLASE, CONSTRUCTOR, FUNCION BUSCAR POR PRECIO Y ORDENAR POR PRECIO
-class Producto{
-    constructor (id, nombre, tecnica, categoria, precio, estado){
+class Producto {
+    constructor(id, nombre, tecnica, categoria, precio, estado) {
         this.id = id;
         this.nombre = nombre;
         this.tecnica = tecnica;
@@ -11,7 +11,7 @@ class Producto{
 };
 
 const cuadros = [
-    new Producto(1, "Abstracto multicolor", "Acrilico sobre lienzo", "Abstracto", 15000, "disponible" ),
+    new Producto(1, "Abstracto multicolor", "Acrilico sobre lienzo", "Abstracto", 15000, "disponible"),
     new Producto(2, "Acuarela botánica", "Acuarela", "Acuarela", 8000, "no disponible"),
     new Producto(3, "Díptico abstracto", "Tecnicas mixtas", "Abstracto", 12000, "disponible"),
     new Producto(4, "Díptico flúo", "Tecnica pouring", "Abstracto", 13000, " no disponible"),
@@ -25,13 +25,14 @@ const cuadros = [
 ];
 
 //BUSCAR POR ID
-/* const buscarId = () => { let id = prompt("ingrese id (1-11)");
-while (id < 1 || id > 11 ){
-    id = prompt("Ingrese un número del 1 al 11");
-}
-let idBuscado = cuadros.filter(item => item.id == id);
-idBuscado.forEach(item => {
-    let mensaje = `
+const buscarId = () => {
+    let id = prompt("ingrese id (1-11)");
+    while (id < 1 || id > 11) {
+        id = prompt("Ingrese un número del 1 al 11");
+    }
+    let idBuscado = cuadros.filter(item => item.id == id);
+    idBuscado.forEach(item => {
+        let mensaje = `
         id: ${item.id}  
         nombre: ${item.nombre}
         tecnica: ${item.tecnica}
@@ -39,16 +40,19 @@ idBuscado.forEach(item => {
         precio: ${item.precio};
         estado: ${item.estado}`
         return alert(mensaje);
-});
+    });
 }
-let resp = prompt("desea ver información de un cuadro?")
+/* let resp = prompt("desea ver información de un cuadro?")
 if (resp == "S" || resp == "s"){
    buscarId();
-}; */
+};  */
 
 //BUSCAR POR NOMBRE
 const buscarNombre = () => {
     let nombre = prompt("Ingrese el nombre a buscar");
+    while (nombre == ""){
+        nombre = prompt("Por favor ingrese el nombre a buscar");
+    }
     let nombreBuscado = cuadros.filter(item => item.nombre.includes(nombre));
     nombreBuscado.forEach(item => {
         let mensaje = `
@@ -57,45 +61,77 @@ const buscarNombre = () => {
             tecnica: ${item.tecnica}
             categoria: ${item.categoria}
             precio: ${item.precio};`
-            return alert(mensaje);
-    });
+        return alert(mensaje);
+    })
 };
 //buscarNombre();
 
 //BUSCAR PRECIO MAYOR AL INGRESADO
-const consultaPrecio = () =>{
-let precio = parseInt(prompt("Ingrese el precio mínimo"));
-let precioMinimo = cuadros.filter(item => item.precio > precio && item.estado == "disponible");
-precioMinimo.forEach(item => {
-    let mensaje = `
+const consultaPrecio = () => {
+    let precio = parseInt(prompt("Ingrese el precio mínimo"));
+    while(/\D/.test(precio) || precio == ""){
+        precio = parseInt(prompt("Debe ingresar un número"));
+    }
+    let precioMinimo = cuadros.filter(item => item.precio > precio && item.estado == "disponible");
+    precioMinimo.forEach(item => {
+        let mensaje = `
              id: ${item.id}  
              nombre: ${item.nombre}
              tecnica: ${item.tecnica}
              categoria: ${item.categoria}
              precio: ${item.precio};`
-              return alert(mensaje);
-});
+        return alert(mensaje);
+    });
 };
 //consultaPrecio();
 
 //ORDENAR POR PRECIO
 const precioOrdenado = () => {
-ordenPrecio = cuadros.sort((a, b) => {
-    if (a.precio > b.precio) {
-        return 1;
-    }
-    if (a.precio <  b.precio) {
-        return -1;
-    }
-    return 0;
-});
-ordenPrecio.forEach(item => {
-    let mensaje = `
+    ordenPrecio = cuadros.sort((a, b) => {
+        if (a.precio > b.precio) {
+            return 1;
+        }
+        if (a.precio < b.precio) {
+            return -1;
+        }
+        return 0;
+    });
+    ordenPrecio.forEach(item => {
+        let mensaje = `
             id: ${item.id}
             nombre: ${item.nombre}
             precio: ${item.precio}
             `
         return alert(mensaje);
-});
+    });
 };
 //precioOrdenado();
+
+let opc = prompt("Ingrese la opción que desea usar: 1-Buscar por Id; 2-Buscar por nombre; 3-Buscar precio mínimo; 4-Ordenar por precio");
+while ((/\D/.test(opc)) || (opc < 1 || opc > 4) || (opc == "")) {
+    opc = prompt("Número incorrecto, ingrese opción 1-4")
+};
+switch (opc) {
+    case "1":
+        buscarId();
+        break;
+    case "2":
+        buscarNombre();
+        break;
+    case "3":
+        consultaPrecio();
+        break;
+    case "4":
+        precioOrdenado();
+        break;
+    default:
+        alert("Hasta luego");
+};
+
+
+
+
+
+
+
+
