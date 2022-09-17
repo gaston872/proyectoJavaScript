@@ -24,69 +24,70 @@ const cuadros = [
     new Producto(11, "Autoretrato", "Acrilico sobre lienzo", "Retrato", 10500, "no disponible"),
 ];
 
-//BUSCAR POR ID
 const buscarId = () => {
+    let contenedor = document.getElementById("contenedor");
     let id = prompt("ingrese id (1-11)");
-    while (id < 1 || id > 11) {
+    while ((/\D/.test(id)) || (id < 1 || id > 11) || (id === "")) {
         id = prompt("Ingrese un número del 1 al 11");
     }
     let idBuscado = cuadros.filter(item => item.id == id);
-    idBuscado.forEach(item => {
-        let mensaje = `
-        id: ${item.id}  
-        nombre: ${item.nombre}
-        tecnica: ${item.tecnica}
-        categoria: ${item.categoria}
-        precio: ${item.precio};
-        estado: ${item.estado}`
-        return alert(mensaje);
-    });
+    for(const producto of idBuscado) {
+        let div = document.createElement("div");
+        div.innerHTML = `
+        <h2>id: ${producto.id}</h2>  
+        <p>nombre: ${producto.nombre}</p>
+        <p>tecnica: ${producto.tecnica}</p>
+        <p>categoria: ${producto.categoria}</p>
+        <p>estado: ${producto.estado}</p>
+        <b>$${producto.precio}`
+        ;
+        contenedor.append(div);
+    };
 }
-/* let resp = prompt("desea ver información de un cuadro?")
-if (resp == "S" || resp == "s"){
-   buscarId();
-};  */
 
 //BUSCAR POR NOMBRE
 const buscarNombre = () => {
+    let contenedor = document.getElementById("contenedor");
     let nombre = prompt("Ingrese el nombre a buscar");
     while (nombre == ""){
         nombre = prompt("Por favor ingrese el nombre a buscar");
     }
     let nombreBuscado = cuadros.filter(item => item.nombre.includes(nombre));
-    nombreBuscado.forEach(item => {
-        let mensaje = `
-            id: ${item.id}  
-            nombre: ${item.nombre}
-            tecnica: ${item.tecnica}
-            categoria: ${item.categoria}
-            precio: ${item.precio};`
-        return alert(mensaje);
-    })
+    for(const producto of nombreBuscado) {
+        let div = document.createElement("div");
+        div.innerHTML = `
+        <h2>id: ${producto.id}</h2>  
+        <p>nombre: ${producto.nombre}</p>
+        <p>tecnica: ${producto.tecnica}</p>
+        <p>categoria: ${producto.categoria}</p>
+        <b>$${producto.precio}`
+        ;
+        contenedor.append(div);
+    }
 };
-//buscarNombre();
 
-//BUSCAR PRECIO MAYOR AL INGRESADO
 const consultaPrecio = () => {
+    let contenedor = document.getElementById("contenedor");
     let precio = parseInt(prompt("Ingrese el precio mínimo"));
     while(/\D/.test(precio) || precio == ""){
         precio = parseInt(prompt("Debe ingresar un número"));
     }
     let precioMinimo = cuadros.filter(item => item.precio > precio && item.estado == "disponible");
-    precioMinimo.forEach(item => {
-        let mensaje = `
-             id: ${item.id}  
-             nombre: ${item.nombre}
-             tecnica: ${item.tecnica}
-             categoria: ${item.categoria}
-             precio: ${item.precio};`
-        return alert(mensaje);
-    });
+    for(const producto of precioMinimo){
+        let div = document.createElement("div");
+        div.innerHTML = `
+             <h2>id: ${producto.id}</h2>  
+             <p>nombre: ${producto.nombre}</p>
+             <p>tecnica: ${producto.tecnica}</p>
+             <p>categoria: ${producto.categoria}</p>
+             <b>$${producto.precio}`
+             ;
+            contenedor.append(div);
+    };
 };
-//consultaPrecio();
 
-//ORDENAR POR PRECIO
 const precioOrdenado = () => {
+    let contenedor = document.getElementById("contenedor");
     ordenPrecio = cuadros.sort((a, b) => {
         if (a.precio > b.precio) {
             return 1;
@@ -96,18 +97,20 @@ const precioOrdenado = () => {
         }
         return 0;
     });
-    ordenPrecio.forEach(item => {
-        let mensaje = `
-            id: ${item.id}
-            nombre: ${item.nombre}
-            precio: ${item.precio}
+    for(const producto of ordenPrecio) {
+        let div = document.createElement("div");
+        div.innerHTML = `
+            <h2>id: ${producto.id}</h2>
+            <p>nombre: ${producto.nombre}</p>
+            <b>$${producto.precio}
             `
-        return alert(mensaje);
-    });
+            ;
+            contenedor.append(div); 
+    };
 };
-//precioOrdenado();
 
-let opc = prompt("Ingrese la opción que desea usar: 1-Buscar por Id; 2-Buscar por nombre; 3-Buscar precio mínimo; 4-Ordenar por precio");
+function simular() {
+let opc = prompt(`Ingrese la opción que desea usar: 1-Buscar por Id; 2-Buscar por nombre; 3-Buscar precio mínimo; 4-Ordenar por precio`);
 while ((/\D/.test(opc)) || (opc < 1 || opc > 4) || (opc == "")) {
     opc = prompt("Número incorrecto, ingrese opción 1-4")
 };
@@ -127,6 +130,21 @@ switch (opc) {
     default:
         alert("Hasta luego");
 };
+}
+
+simular();
+
+/* let opcion = prompt("Desea realizar una operación? S/N");
+while (opcion === "S" || opcion ==="s"){
+    simular();
+    //opcion = prompt("Desea realizar otra operación? S/N")
+} */
+/* if (opcion !="S" || opcion!="s") {
+    alert("Hasta luego")
+}  */
+
+
+
 
 
 
