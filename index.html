@@ -1,13 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
+
 <body>
-    <div id="contenedor"></div>
+    <div class="contenedor">
+        <div class="card">
+            <div class="card_img">
+                <img src="./img/buscar.jpg" alt="">
+            </div>
+            <div class="card_titulo">
+                <h1>Buscar por nombre</h1>
+            </div>
+            <div class="card_texto">
+                <p>Muestra los productos con el nombre ingresado</p>
+            </div>
+            <button id="btn1" class="material-symbols-outlined boton">search</button>
+        </div>
+        <div class="card">
+            <div class="card_img">
+                <img src="./img/satisfaccion_ordenacion_precio.jpg" alt="">
+            </div>
+            <div class="card_titulo">
+                <h1>Ordenar por precio</h1>
+            </div>
+            <div class="card_texto">
+                <p>Se mostraran los prductos con precios de menor a mayor</p>
+            </div>
+            <button id="btn2" class="material-symbols-outlined boton" type="button">dataset</button>
+        </div>
+        <div class="card">
+            <div class="card_img">
+                <img src="./img/descarga.jpg" alt="">
+            </div>
+            <div class="card_titulo">
+                <h1>hombre en la luna</h1>
+            </div>
+            <div class="card_texto">
+                <p>habia una vez un hombre en la luna</p>
+            </div>
+            <a id="btn3" href="#" class="material-symbols-outlined">shopping_cart</a> 
+        </div>
+    </div>
+    <div id="container" class="container"></div>
     <script src="./index.js"></script>
 </body>
+
 </html>
