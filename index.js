@@ -24,10 +24,42 @@ const cuadros = [
     new Producto(11, "Autoretrato", "Acrilico sobre lienzo", "Retrato", 10500, "no disponible"),
 ];
 
+localStorage.setItem("cuadros", JSON.stringify(cuadros));
+
+const agregarProd = () =>{
+    let prod = JSON.parse(localStorage.getItem("cuadros"));
+    let nombre = prompt("ingrese nombre");
+    let tecnica = prompt("ingrese tecnica");
+    let categoria = prompt("ingrese categoria");
+    let precio = prompt("ingrese precio");
+    let estado = prompt("ingrese estado");
+    let producto = {
+        id: prod.length + 1,
+        nombre: nombre,
+        tecnica: tecnica,
+        categoria: categoria,
+        precio: precio,
+        estado: estado
+    }   
+    prod.push(producto);
+    localStorage.setItem("cuadros", JSON.stringify(prod));
+}
+
+const eliminarCuadro = () =>{
+    let arregloObjetos = JSON.parse(localStorage.getItem("cuadros"));
+    let id = prompt("Ingrese el ID a eliminar");
+    let eliminar = arregloObjetos.filter(item => item.id != id);
+    //arregloObjetos.splice(eliminar, 1);
+    /* let arrayJson = JSON.stringify(eliminar);
+    localStorage.setItem("cuadros", arrayJson); */
+    localStorage.setItem("cuadros", JSON.stringify(eliminar));
+}
+
 const precioOrdenado = () => {
     let contenedor = document.getElementById("container");
      contenedor.innerHTML = "";
-    ordenPrecio = cuadros.sort((a, b) => {
+     let cuadros = JSON.parse(localStorage.getItem("cuadros"));
+     ordenPrecio = cuadros.sort((a, b) => {
         if (a.precio > b.precio) {
             return 1;
         }
@@ -36,7 +68,7 @@ const precioOrdenado = () => {
         }
         return 0;
     });
-    for(const producto of ordenPrecio) {
+    for(const producto of ordenPrecio) {  
         let div = document.createElement("div");
         div.innerHTML = `
             <div class = "container_info">
@@ -58,6 +90,7 @@ const buscarNombre = () => {
     while (nombre == ""){
         nombre = prompt("Por favor ingrese el nombre a buscar");
     }
+    let cuadros = JSON.parse(localStorage.getItem("cuadros"));
     let nombreBuscado = cuadros.filter(item => item.nombre.includes(nombre));
     for(const producto of nombreBuscado) {
         let div = document.createElement("div");
@@ -78,6 +111,36 @@ boton2.addEventListener("click", precioOrdenado);
 
 let boton1 = document.getElementById("btn1")
 boton1.addEventListener("click", buscarNombre);
+
+let boton4 = document.getElementById("btn4");
+boton4.addEventListener("click", agregarProd);
+
+let boton5 = document.getElementById("btn5");
+boton5.addEventListener("click", () => {
+    let arregloObjetos = JSON.parse(localStorage.getItem("cuadros"));
+    let id = prompt("Ingrese el ID a eliminar");
+    Swal.fire({
+      title: "Está seguro de eliminar el producto?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, seguro",
+      cancelButtonText: "No, no quiero",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let eliminar = arregloObjetos.filter(item => item.id != id);
+    //arregloObjetos.splice(eliminar, 1);
+    /* let arrayJson = JSON.stringify(eliminar);
+    localStorage.setItem("cuadros", arrayJson); */
+    localStorage.setItem("cuadros", JSON.stringify(eliminar));
+        //logica para eleminar del carrito
+        Swal.fire({
+          title: "Borrado!",
+          icon: "success",
+          text: "El producto ha sido borrado",
+        });
+      }
+    });
+  });
 
 
 
