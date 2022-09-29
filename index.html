@@ -14,13 +14,14 @@
 </head>
 
 <body>
+    <h1>Menú principal</h1>
     <div class="contenedor">
         <div class="card">
             <div class="card_img">
                 <img src="./img/buscar.jpg" alt="">
             </div>
             <div class="card_titulo">
-                <h1>Buscar por nombre</h1>
+                <h2>Buscar por nombre</h2>
             </div>
             <div class="card_texto">
                 <p>Muestra los productos con el nombre ingresado</p>
@@ -32,7 +33,7 @@
                 <img src="./img/satisfaccion_ordenacion_precio.jpg" alt="">
             </div>
             <div class="card_titulo">
-                <h1>Ordenar por precio</h1>
+                <h2>Ordenar por precio</h2>
             </div>
             <div class="card_texto">
                 <p>Se mostraran los prductos con precios de menor a mayor</p>
@@ -41,41 +42,68 @@
         </div>
         <div class="card">
             <div class="card_img">
-                <img src="./img/descarga.jpg" alt="">
+                <img src="./img/comprar.jpg" alt="">
             </div>
             <div class="card_titulo">
-                <h1>hombre en la luna</h1>
+                <h2>Comprar cuadro</h2>
             </div>
             <div class="card_texto">
-                <p>habia una vez un hombre en la luna</p>
+                <p>Redirigir al carrito</p>
             </div>
-            <a id="btn3" href="#" class="material-symbols-outlined">shopping_cart</a> 
+            <a id="btn3" href="./carrito.html" target="_blank" class="material-symbols-outlined">shopping_cart</a> 
         </div>
         <div class="card">
             <div class="card_img">
-                <img src="./img/satisfaccion_ordenacion_precio.jpg" alt="">
+                <img src="./img/sumar.jpg" alt="">
             </div>
             <div class="card_titulo">
-                <h1>Agregar producto</h1>
+                <h2>Agregar producto</h2>
             </div>
             <div class="card_texto">
                 <p>Agrega un nuevo producto</p>
             </div>
-            <button id="btn4" class="material-symbols-outlined boton" type="button">dataset</button>
+            <button id="btn4" class="material-symbols-outlined boton" type="button">add_circle</button>
         </div>
         <div class="card">
             <div class="card_img">
-                <img src="./img/satisfaccion_ordenacion_precio.jpg" alt="">
+                <img src="./img/eliminar.jpg" alt="">
             </div>
             <div class="card_titulo">
-                <h1>Eliminar cuadro</h1>
+                <h2>Eliminar cuadro</h2>
             </div>
             <div class="card_texto">
                 <p>Elimina cuadro por ID</p>
             </div>
-            <button id="btn5" class="material-symbols-outlined boton" type="button">dataset</button>
+            <button id="btn5" class="material-symbols-outlined boton" type="button">delete</button>
         </div>
     </div>
+    <!-- ****************ELEMENTOS OCULTOS**************************** -->
+    <div class="oculto">
+        <h4>Agregar Producto</h4>
+        <div class="container">
+          <input id="inputField1" type="text" placeholder="nombre" />
+          <input id="inputField2" type="text" placeholder="tecnica" />
+          <input id="inputField3" type="text" placeholder="categoria" />
+          <input id="inputField4" type="text" placeholder="precio" />
+          <input id="inputField5" type="text" placeholder="estado" />
+          <button id="addProduct" class="material-symbols-outlined boton">add_circle</button>
+        </div>
+    </div>
+    <div class="oculto_id">
+        <h4>Inlgrese ID a eliminar</h4>
+        <div class="container">
+            <input type="text" id="inputField6" placeholder="Ingrese Id" />
+            <button id="eliminar" class="material-symbols-outlined boton">delete</button>
+        </div>
+    </div>
+    <div class="oculto_name">
+        <h4>Ingrese nombre que desea buscar</h4>
+        <div class="container">
+            <input type="text" id="inputField7" placeholder="Ingrese Id" />
+            <button id="buscar" class="material-symbols-outlined boton">search</button>
+        </div>
+    </div>
+      <!-- *********************************************************** -->
     <div id="container" class="container"></div>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./index.js"></script>

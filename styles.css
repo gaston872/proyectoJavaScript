@@ -2,6 +2,12 @@ body{
     font-family: 'Comfortaa', cursive;
 }
 
+h1{
+    text-align: center;
+    margin: 2em;
+    text-decoration: underline;
+}
+
 .contenedor{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -22,7 +28,7 @@ body{
     width: 200px;
     height: 300px;
     border-radius: 15%;
-    justify-content: center;
+    justify-content: space-evenly;
     box-shadow: 2px 2px 2px 2px grey;
     align-items: center;
 }
@@ -37,6 +43,18 @@ img{
     border-radius: 40%;
     width: 80%;
     height: 100%; 
+}
+
+.oculto {
+    display: none;
+}
+
+.oculto_id {
+    display: none;
+}
+
+.oculto_name{
+    display: none;
 }
 
 .card_titulo{
@@ -62,7 +80,7 @@ img{
 }
 
 .boton{
-    border-radius: 20%;
+    border-radius: 100%;
     background-color: none;
     width: 30%;
     position: relative;
@@ -74,6 +92,11 @@ img{
     cursor: pointer;
 }
 
+input {
+    height: 20px;
+    margin: 3px;
+}
+
 .material-symbols-outlined {
     text-decoration: none;
     color: rgb(101, 101, 252);
@@ -83,3 +106,4 @@ img{
   'GRAD' 0,
   'opsz' 48
 }
+

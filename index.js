@@ -24,35 +24,44 @@ const cuadros = [
     new Producto(11, "Autoretrato", "Acrilico sobre lienzo", "Retrato", 10500, "no disponible"),
 ];
 
-localStorage.setItem("cuadros", JSON.stringify(cuadros));
+letCuadrosEnStorage =
+  JSON.parse(localStorage.getItem("cuadros")) ||
+  localStorage.setItem("cuadros", JSON.stringify(cuadros));
 
-const agregarProd = () =>{
+let addProduct = document.getElementById("addProduct");
+let newProductContainer = document.getElementById("newProductContainer");
+
+const agregarProd = () => {
     let prod = JSON.parse(localStorage.getItem("cuadros"));
-    let nombre = prompt("ingrese nombre");
-    let tecnica = prompt("ingrese tecnica");
-    let categoria = prompt("ingrese categoria");
-    let precio = prompt("ingrese precio");
-    let estado = prompt("ingrese estado");
+    let nombre = document.querySelector("#inputField1").value;
+    let tecnica = document.querySelector("#inputField2").value;
+    let categoria = document.querySelector("#inputField3").value;
+    let precio = document.querySelector("#inputField4").value;
+    let estado = document.querySelector("#inputField5").value;
+  
     let producto = {
-        id: prod.length + 1,
-        nombre: nombre,
-        tecnica: tecnica,
-        categoria: categoria,
-        precio: precio,
-        estado: estado
-    }   
+      id: prod.length + 1,
+      nombre: nombre,
+      tecnica: tecnica,
+      categoria: categoria,
+      precio: precio,
+      estado: estado
+    };
     prod.push(producto);
     localStorage.setItem("cuadros", JSON.stringify(prod));
-}
+    precioOrdenado(); 
+  };
+  //************************************************************************** */
 
 const eliminarCuadro = () =>{
     let arregloObjetos = JSON.parse(localStorage.getItem("cuadros"));
-    let id = prompt("Ingrese el ID a eliminar");
+    let id = document.querySelector("#inputField6").value;
     let eliminar = arregloObjetos.filter(item => item.id != id);
     //arregloObjetos.splice(eliminar, 1);
     /* let arrayJson = JSON.stringify(eliminar);
     localStorage.setItem("cuadros", arrayJson); */
     localStorage.setItem("cuadros", JSON.stringify(eliminar));
+    precioOrdenado();
 }
 
 const precioOrdenado = () => {
@@ -86,10 +95,12 @@ const precioOrdenado = () => {
 const buscarNombre = () => {
     let contenedor = document.getElementById("container");
     contenedor.innerHTML = "";
-    let nombre = prompt("Ingrese el nombre a buscar");
-    while (nombre == ""){
-        nombre = prompt("Por favor ingrese el nombre a buscar");
-    }
+    //let nombre = prompt("Ingrese el nombre a buscar");
+    let nombre = document.querySelector("#inputField7").value;
+    if (nombre == ""){
+        alert("Por favor ingrese el nombre a buscar");
+        //nombre = document.querySelector("#inputField5").value;
+    } else {
     let cuadros = JSON.parse(localStorage.getItem("cuadros"));
     let nombreBuscado = cuadros.filter(item => item.nombre.includes(nombre));
     for(const producto of nombreBuscado) {
@@ -103,6 +114,7 @@ const buscarNombre = () => {
         <b>$${producto.precio}`
         ;
         contenedor.append(div);
+        }
     }
 };
 
@@ -110,15 +122,37 @@ let boton2 = document.getElementById("btn2");
 boton2.addEventListener("click", precioOrdenado);
 
 let boton1 = document.getElementById("btn1")
-boton1.addEventListener("click", buscarNombre);
+boton1.addEventListener("click", () => {
+    let mostrar = document.querySelector(".oculto_name");
+    mostrar.classList.remove("oculto_name");
+  });
+  buscar.addEventListener("click", buscarNombre);
 
 let boton4 = document.getElementById("btn4");
-boton4.addEventListener("click", agregarProd);
+boton4.addEventListener("click", () => {
+  let mostrar = document.querySelector(".oculto");
+  mostrar.classList.remove("oculto");
+});
+
+addProduct.addEventListener("click", agregarProd);
+
+
 
 let boton5 = document.getElementById("btn5");
 boton5.addEventListener("click", () => {
+    let contenedor = document.getElementById("container");
+    contenedor.innerHTML = "";
+    
+    let mostrar = document.querySelector(".oculto_id");
+    mostrar.classList.remove("oculto_id");
+    precioOrdenado();
+});
+
+
+
+eliminar.addEventListener("click", () => {
     let arregloObjetos = JSON.parse(localStorage.getItem("cuadros"));
-    let id = prompt("Ingrese el ID a eliminar");
+    let id = document.querySelector("#inputField6").value;
     Swal.fire({
       title: "Está seguro de eliminar el producto?",
       icon: "warning",
@@ -128,19 +162,19 @@ boton5.addEventListener("click", () => {
     }).then((result) => {
       if (result.isConfirmed) {
         let eliminar = arregloObjetos.filter(item => item.id != id);
-    //arregloObjetos.splice(eliminar, 1);
-    /* let arrayJson = JSON.stringify(eliminar);
-    localStorage.setItem("cuadros", arrayJson); */
     localStorage.setItem("cuadros", JSON.stringify(eliminar));
-        //logica para eleminar del carrito
         Swal.fire({
           title: "Borrado!",
           icon: "success",
           text: "El producto ha sido borrado",
         });
       }
+      precioOrdenado();
     });
   });
+
+  /***********CARRITO******************/
+  
 
 
 
