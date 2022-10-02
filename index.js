@@ -31,6 +31,7 @@ letCuadrosEnStorage =
 let addProduct = document.getElementById("addProduct");
 let newProductContainer = document.getElementById("newProductContainer");
 
+//************************AGREGAR**************************************** */
 const agregarProd = () => {
     let prod = JSON.parse(localStorage.getItem("cuadros"));
     let nombre = document.querySelector("#inputField1").value;
@@ -51,8 +52,9 @@ const agregarProd = () => {
     localStorage.setItem("cuadros", JSON.stringify(prod));
     precioOrdenado(); 
   };
-  //************************************************************************** */
 
+
+  //************************ELIMINAR**************************************** */
 const eliminarCuadro = () =>{
     let arregloObjetos = JSON.parse(localStorage.getItem("cuadros"));
     let id = document.querySelector("#inputField6").value;
@@ -64,6 +66,7 @@ const eliminarCuadro = () =>{
     precioOrdenado();
 }
 
+//************************ORDENAR**************************************** */
 const precioOrdenado = () => {
     let contenedor = document.getElementById("container");
      contenedor.innerHTML = "";
@@ -92,32 +95,42 @@ const precioOrdenado = () => {
     };
 };
 
+//************************BUSCAR NOMBRE**************************************** */
 const buscarNombre = () => {
-    let contenedor = document.getElementById("container");
-    contenedor.innerHTML = "";
-    //let nombre = prompt("Ingrese el nombre a buscar");
-    let nombre = document.querySelector("#inputField7").value;
-    if (nombre == ""){
-        alert("Por favor ingrese el nombre a buscar");
-        //nombre = document.querySelector("#inputField5").value;
-    } else {
-    let cuadros = JSON.parse(localStorage.getItem("cuadros"));
-    let nombreBuscado = cuadros.filter(item => item.nombre.includes(nombre));
-    for(const producto of nombreBuscado) {
-        let div = document.createElement("div");
-        div.innerHTML = `
-        <div class = "container_info">
-        <h2>id: ${producto.id}</h2>  
-        <p>nombre: ${producto.nombre}</p>
-        <p>tecnica: ${producto.tecnica}</p>
-        <p>categoria: ${producto.categoria}</p>
-        <b>$${producto.precio}`
-        ;
-        contenedor.append(div);
-        }
+  let contenedor = document.getElementById("container");
+  contenedor.innerHTML = "";
+  const mensaje = () => {
+    Swal.fire({
+    title: 'Por favor ingrese un nombre',
+    showClass: {
+      popup: 'animate__animated animate__fadeInDown'
+    },
+    hideClass: {
+      popup: 'animate__animated animate__fadeOutUp'
     }
+    })
+  };
+  const buscarCuadro = () => {
+      let cuadros = JSON.parse(localStorage.getItem("cuadros"));
+      let nombreBuscado = cuadros.filter(item => item.nombre.includes(nombre));
+      for (const producto of nombreBuscado) {
+          let div = document.createElement("div");
+          div.innerHTML = `
+      <div class = "container_info">
+      <h2>id: ${producto.id}</h2>  
+      <p>nombre: ${producto.nombre}</p>
+      <p>tecnica: ${producto.tecnica}</p>
+      <p>categoria: ${producto.categoria}</p>
+      <b>$${producto.precio}`
+              ;
+          contenedor.append(div);
+      }
+  }
+  let nombre = document.querySelector("#inputField7").value;
+  nombre === "" ? mensaje() : buscarCuadro();
 };
 
+//************************BOTONES**************************************** */
 let boton2 = document.getElementById("btn2");
 boton2.addEventListener("click", precioOrdenado);
 
@@ -149,7 +162,6 @@ boton5.addEventListener("click", () => {
 });
 
 
-
 eliminar.addEventListener("click", () => {
     let arregloObjetos = JSON.parse(localStorage.getItem("cuadros"));
     let id = document.querySelector("#inputField6").value;
@@ -173,7 +185,7 @@ eliminar.addEventListener("click", () => {
     });
   });
 
-  /***********CARRITO******************/
+ 
   
 
 
