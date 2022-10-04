@@ -127,8 +127,12 @@ const buscarNombre = () => {
       }
   }
   let nombre = document.querySelector("#inputField7").value;
+  nombre = nombre[0].toUpperCase() + nombre.substring(1);
   nombre === "" ? mensaje() : buscarCuadro();
 };
+
+
+
 
 //************************BOTONES**************************************** */
 let boton2 = document.getElementById("btn2");
