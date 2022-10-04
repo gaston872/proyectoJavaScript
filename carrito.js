@@ -120,3 +120,33 @@ function vaciarCarrito (){
 
 const vaciar = document.querySelector("#boton-vaciar");
 vaciar.addEventListener("click", vaciarCarrito);
+
+const DateTime = luxon.DateTime;
+const hoy = DateTime.now();
+
+  const confirmar = document.querySelector("#boton-confirmar");
+confirmar.addEventListener("click", () => {
+    Swal.fire({
+        title: 'Confirma compra?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let fecha = new Date();
+            let total = 0;
+            carrito.forEach((prod) =>{
+            total += prod.precio * prod.cantidad;
+            });
+        Swal.fire(
+            `Su compra de $${total} fue confirmada`,
+            `El día: ${hoy.toLocaleString(DateTime.DATE_SHORT)}, a las ${hoy.toLocaleString(DateTime.TIME_SIMPLE)}`,
+            'Your file has been deleted.',
+            'success'
+        )
+        vaciarCarrito()
+        }
+    })
+});
