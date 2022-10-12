@@ -150,3 +150,27 @@ confirmar.addEventListener("click", () => {
         }
     })
 });
+
+const convertirMoneda = async () => {
+    try{
+        const resp = await
+        fetch("./index.json")
+        const data = await resp.json()
+    let total = 0;
+            carrito.forEach((prod) =>{
+            total += prod.precio * prod.cantidad;
+            });
+    let USD = total*data[0].valor;
+    let EUR = total*data[1].valor;
+    let BR = total*data[2].valor;
+
+    Swal.fire(`USD: $${USD.toFixed(2)}
+     EUR: $${EUR.toFixed(2)}
+      BR: $${BR.toFixed(2)}
+      `);
+} catch {
+    Swal.fire(`Error`);
+};
+};
+const moneda = document.querySelector("#boton-moneda");
+moneda.addEventListener("click", convertirMoneda);
