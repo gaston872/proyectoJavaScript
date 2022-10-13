@@ -154,19 +154,20 @@ confirmar.addEventListener("click", () => {
 const convertirMoneda = async () => {
     try{
         const resp = await
-        fetch("./index.json")
+        fetch("https://api.currencyapi.com/v3/latest?apikey=pnzlEQk9UTRLWh6vGbs3zEt7zDvUWnIRbz1pJrlT")
         const data = await resp.json()
+        console.log(data);
     let total = 0;
             carrito.forEach((prod) =>{
             total += prod.precio * prod.cantidad;
             });
-    let USD = total*data[0].valor;
-    let EUR = total*data[1].valor;
-    let BR = total*data[2].valor;
-
-    Swal.fire(`USD: $${USD.toFixed(2)}
-     EUR: $${EUR.toFixed(2)}
-      BR: $${BR.toFixed(2)}
+    let usd = (data.data.USD.value / data.data.ARS.value) * total;
+    let eur = (data.data.EUR.value / data.data.ARS.value) * total;
+    let brl = (data.data.BRL.value / data.data.ARS.value) * total;
+    
+    Swal.fire(`USD: $${usd.toFixed(2)}
+            EUR: $${eur.toFixed(2)}
+            BRL: $${brl.toFixed(2)}
       `);
 } catch {
     Swal.fire(`Error`);
